@@ -1,0 +1,119 @@
+<script type="text/x-red" data-help-name="shopify-inventory">
+  <p>Use the Shopify REST Admin API to perform the following actions selected in <code>Resources</code> and <code>Methods</code></p>
+  <ul>
+    <li>InventoryItem
+      <ul>
+        <li>List</li>
+        <li>Get</li>
+        <li>Update</li>
+      </ul>
+    </li>
+    <li>InventoryLevel
+      <ul>
+        <li>List</li>
+        <li>Set</li>
+        <li>Adjust</li>
+        <li>Delete</li>
+      </ul>
+    </li>
+    <li>Location
+      <ul>
+        <li>List</li>
+        <li>Get</li>
+        <li>inventoryLevels</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>inventoryItemId <span class="property-type">string</span></dt>
+        <dd>Enter the inventory item ID to execute the selected process.</dd>
+        <dt>locationId <span class="property-type">string</span></dt>
+        <dd>Enter the location ID to execute the selected process.</dd>
+        <dt>available <span class="property-type">number</span></dt>
+        <dd>Enter the number of available inventory quantities or adjustments.</dd>
+        <dt>dataJson <span class="property-type">string | object</span></dt>
+        <dd>Enter the JSON object of the data to be processed for the selected process.</dd>
+    </dl>
+
+  <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">object</span></dt>
+        <dd>Outputs the execution result of the selected process.</dd>
+    </dl>
+
+  <h3>Details</h3>
+  <h4>InventoryItem</h4>
+  <h5>List</h5>
+    <p>Retrieves a list of inventory items.</p>
+    <p>Enter the inventory item IDs to be retrieved in <code>msg.inventoryItemId</code>, separated by commas.</p>
+    <pre>808950810,39072856,457924702</pre>
+    <p>Outputs a list of inventory items retrieved.</p>
+
+  <h5>Get</h5>
+    <p>Retrieves a single inventory item by ID.</p>
+    <p>Enter the inventory item ID to be retrieved in <code>msg.inventoryItemId</code>.</p>
+    <p>Outputs the retrieved inventory item records.</p>
+
+  <h5>Update</h5>
+    <p>Updates an existing inventory item.</p>
+    <p>Enter the inventory item ID to be updated in <code>msg.inventoryItemId</code>.</p>
+    <p>Enter the data for the record to be updated in <code>msg.dataJson</code>.</p>
+    <pre>{"sku": "new sku"}</pre>
+    <p>Outputs the updated inventory item records.</p>
+
+  <h4>InventoryLevel</h4>
+  <h5>List</h5>
+    <p>Retrieves a list of inventory levels.</p>
+    <p>Enter the inventory item IDs to be retrieved in <code>msg.inventoryItemId</code>, separated by commas.</p>
+    <p>Enter the location IDs to be retrieved in <code>msg.locationId</code>, separated by commas.</p>
+    <pre>808950810,39072856</pre>
+    <p>Outputs a list of inventory levels retrieved.</p>
+
+  <h5>Set</h5>
+    <p>Sets the inventory level for an inventory item at a location.</p>
+    <p>Enter the inventory item ID for which to set the inventory level in <code>msg.inventoryItemId</code>.</p>
+    <p>Enter the location ID to set the inventory level in <code>msg.locationId</code>.</p>
+    <p>Enter the quantity of inventory to be set in <code>msg.available</code>.</p>
+    <p>Outputs the sets the inventory level of the inventory item at a location.</p>
+
+  <h5>Adjust</h5>
+    <p>Adjusts the inventory level of an inventory item at a location.</p>
+    <p>Enter the inventory item ID for which the inventory level is to be adjusted in <code>msg.inventoryItemId</code>.</p>
+    <p>Enter the location ID where the inventory level is to be adjusted in <code>msg.locationId</code>.</p>
+    <p>Enter the inventory quantity to be adjusted in <code>msg.available</code>.</p>
+    <p>Outputs the adjusted the inventory level of the inventory item at a location.</p>
+
+  <h5>Delete</h5>
+    <p>Deletes an inventory level from a location.</p>
+    <p>Enter the inventory item ID for which the inventory level is to be deleted in <code>msg.inventoryItemId</code>.</p>
+    <p>Enter the location ID where the inventory level is to be deleted in <code>msg.locationId</code>.</p>
+    <p>Outputs deleted records (empty).</p>
+
+  <h4>Location</h4>
+  <h5>List</h5>
+    <p>Retrieve a list of locations.</p>
+    <p>Outputs a list of locations retrieved.</p>
+
+  <h5>Get</h5>
+    <p>Retrieve a single location by its ID.</p>
+    <p>Enter the location ID to be retrieved in <code>msg.locationId</code>.</p>
+    <p>Outputs the record of the retrieved location.</p>
+
+  <h5>inventoryLevels</h5>
+    <p>Retrieve a list of inventory levels for a location.</p>
+    <p>Enter the location ID to be retrieved in <code>msg.locationId</code>.</p>
+    <p>Outputs a list of inventory levels for the retrieved location.</p>
+
+  <p></p>
+  <p><b>Note</b>: Input items can also be entered in the node's edit dialog, but the value passed in <code>msg.xx</code> takes precedence.</p>
+
+<h3>References</h3>
+  <p>For more information, see the Shopify REST Admin API reference.</p>
+  <ul>
+    <li><a href="https://shopify.dev/api/admin-rest/2022-07/resources/inventoryitem">InventoryItem</a></li>
+    <li><a href="https://shopify.dev/api/admin-rest/2022-07/resources/inventorylevel">InventoryLevel</a></li>
+    <li><a href="https://shopify.dev/api/admin-rest/2022-07/resources/location">Location</a></li>
+  </ul>
+</script>

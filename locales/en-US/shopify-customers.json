@@ -1,0 +1,17 @@
+{
+  "shopify-customers" : {
+      "label" : {
+          "resource" : "Resources",
+          "method" : "Methods",
+          "customerId" : "CustomerId",
+          "addressId" : "CustomerAddressId",
+          "dataJson" : "Data JSON",
+          "name": "Name"
+      },
+      "placeholder" : {
+          "customerId" : "CustomerId",
+          "addressId" : "CustomerAddressId",
+          "name": "Name"
+      }
+  }
+}

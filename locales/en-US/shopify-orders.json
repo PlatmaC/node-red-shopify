@@ -1,0 +1,17 @@
+{
+  "shopify-orders" : {
+      "label" : {
+          "resource" : "Resources",
+          "method" : "Methods",
+          "draftOrderId" : "draftOrderId",
+          "orderId" : "OrderId",
+          "dataJson" : "Data JSON",
+          "name" : "Name"
+      },
+      "placeholder" : {
+          "draftOrderId" : "draftOrderId",
+          "orderId" : "OrderId",
+          "name" : "Name"
+    }
+  }
+}

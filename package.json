@@ -1,0 +1,33 @@
+{
+  "name": "@platmac/node-red-shopify",
+  "version": "0.1.0",
+  "author": "Hooke Jr. <platma@platma.com>",
+  "description": "A collection of Node-RED nodes for Shopify Admin API / REST.",
+  "license": "Apache-2.0",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/PlatmaC/node-red-shopify.git"
+  },
+  "dependencies": {
+    "shopify-api-node": "^3.x.x"
+  },
+  "keywords": [
+    "node-red",
+    "Shopify"
+  ],
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "node-red": {
+    "version": ">=3.1.9",
+    "nodes": {
+      "shopify": "shopify.js",
+      "shopify-customers": "shopify-customers.js",
+      "shopify-products": "shopify-products.js",
+      "shopify-orders": "shopify-orders.js",
+      "shopify-inventory": "shopify-inventory.js",
+      "shopify-online_store": "shopify-online_store.js"
+
+    }
+  }
+}

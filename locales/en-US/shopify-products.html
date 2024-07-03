@@ -1,0 +1,118 @@
+<script type="text/x-red" data-help-name="shopify-products">
+  <p>Use the Shopify REST Admin API to perform the following actions selected in <code>Resources</code> and <code>Methods</code></p>
+  <ul>
+    <li>Product
+      <ul>
+        <li>List</li>
+        <li>Get</li>
+        <li>Create</li>
+        <li>Update</li>
+        <li>Delete</li>
+      </ul>
+    </li>
+    <li>Product Variant
+      <ul>
+        <li>List</li>
+        <li>Get</li>
+        <li>Create</li>
+        <li>Update</li>
+        <li>Delete</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>productId <span class="property-type">string</span></dt>
+        <dd>Enter the Product ID to execute the selected process.</dd>
+        <dt>variantId <span class="property-type">string</span></dt>
+        <dd>Enter the Product Variant ID to execute the selected process.</dd>
+        <dt>dataJson <span class="property-type">string | object</span></dt>
+        <dd>Enter the JSON object of the data to be processed for the selected process.</dd>
+    </dl>
+
+  <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">object</span></dt>
+        <dd>Outputs the execution result of the selected process.</dd>
+    </dl>
+
+  <h3>Details</h3>
+  <h4>Product</h4>
+  <h5>List</h5>
+    <p>Retrieve a list of products.</p>
+    <p>Outputs the retrieve product list.</p>
+
+  <h5>Get</h5>
+    <p>Retrieve a single product.</p>
+    <p>Enter the product ID to be retrieved in <code>msg.productId</code>.</p>
+    <p>Outputs the retrieved product records.</p>
+
+  <h5>Create</h5>
+    <p>Create a new product.</p>
+    <p>Enter the data for the record to be created in <code>msg.dataJson</code>.</p>
+    <pre>{
+  "title": "test shirt",
+  "product_type": "shirt"
+}</pre>
+    <p>Outputs the created product records.</p>
+
+  <h5>Update</h5>
+    <p>Updates a product.</p>
+    <p>Enter the product ID to be updated in <code>msg.productId</code>.</p>
+    <p>Enter the data for the record to be updated in <code>msg.dataJson</code>.</p>
+    <pre>{
+  "vendor": "testInc",
+  "tags": ["test", "shirt"]
+}</pre>
+    <p>Outputs the updated product records.</p>
+
+  <h5>Delete</h5>
+    <p>Delete a product.</p>
+    <p>Enter the product ID to be deleted in <code>msg.productId</code>.</p>
+    <p>Outputs deleted records (empty).</p>
+
+  <h4>Product Variant</h4>
+  <h5>List</h5>
+    <p>Retrieves a list of product variants.</p>
+    <p>Enter the product ID for which the variants is to be retrieved in <code>msg.productId</code>.</p>
+    <p>Outputs a list of variants of the retrieved product.</p>
+
+  <h5>Get</h5>
+    <p>Receive a single Product Variant.</p>
+    <p>Enter the product variant ID to be retrieved in<code>msg.variantId</code>.</p>
+    <p>Outputs the retrieved product variant records.</p>
+
+  <h5>Create</h5>
+    <p>Create a new Product Variant.</p>
+    <p>Enter the product ID for which the variants in to be created in <code>msg.productId</code>.</p>
+    <p>Enter the data for the record to be created in <code>msg.dataJson</code>.</p>
+    <pre>{
+  "option1": "Medium",
+  "price": 500
+}</pre>
+    <p>Outputs the created product variant records.</p>
+
+  <h5>Update</h5>
+    <p>Modify an existing Product Variant.</p>
+    <p>Enter the product variant ID to be updated in <code>msg.variantId</code>.</p>
+    <p>Enter the data for the record to be updated in <code>msg.dataJson</code>.</p>
+    <pre>{"option1": "Medium - Red"}</pre>
+    <p>Outputs the updated product variant records.</p>
+
+  <h5>Delete</h5>
+    <p>Remove an existing Product Variant.</p>
+    <p>Enter the product ID for which the variants in to be deleted in <code>msg.productId</code>.</p>
+    <p>Enter the product variant ID to be deleted in <code>msg.variantId</code>.</p>
+    <p>Outputs deleted records (empty).</p>
+
+  <p></p>
+  <p><b>Note</b>: Input items can also be entered in the node's edit dialog, but the value passed in <code>msg.xx</code> takes precedence.</p>
+
+<h3>References</h3>
+  <p>For more information, see the Shopify REST Admin API reference.</p>
+  <ul>
+    <li><a href="https://shopify.dev/api/admin-rest/2022-07/resources/product">Product</a></li>
+    <li><a href="https://shopify.dev/api/admin-rest/2022-07/resources/product-variant">Product Variant</a></li>
+  </ul>
+</script>

@@ -1,0 +1,236 @@
+<!--
+  Copyright 2014 Atsushi Kojo.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/html" data-template-name="shopify-online_store">
+  <div class="form-row">
+    <label for="node-input-auth"><i class="fa fa-user"></i> Shopify</label>
+    <input type="text" id="node-input-auth">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-resource"><i class="fa fa-wrench"></i> <span data-i18n="shopify-online_store.label.resource"></span></label>
+    <select id="node-input-resource">
+      <option value="article">Article</option>
+      <option value="blog">Blog</option>
+      <option value="comment">Comment</option>
+      <option value="page">Page</option>
+      <option value="theme">Theme</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="node-input-method"><i class="fa fa-wrench"></i> <span data-i18n="shopify-online_store.label.method"></span></label>
+    <select id="node-input-method"></select>
+  </div>
+  <div class="form-row" id="shopify-articleId-row">
+    <label for="node-input-articleId"><i class="fa fa-tag"></i> <span data-i18n="shopify-online_store.label.articleId"></span></label>
+    <input type="text" id="node-input-articleId" data-i18n="[placeholder]shopify-online_store.placeholder.articleId" />
+  </div>
+  <div class="form-row" id="shopify-blogId-row">
+    <label for="node-input-blogId"><i class="fa fa-tag"></i> <span data-i18n="shopify-online_store.label.blogId"></span></label>
+    <input type="text" id="node-input-blogId" data-i18n="[placeholder]shopify-online_store.placeholder.blogId" />
+  </div>
+  <div class="form-row" id="shopify-commentId-row">
+    <label for="node-input-commentId"><i class="fa fa-tag"></i> <span data-i18n="shopify-online_store.label.commentId"></span></label>
+    <input type="text" id="node-input-commentId" data-i18n="[placeholder]shopify-online_store.placeholder.commentId" />
+  </div>
+  <div class="form-row" id="shopify-themeId-row">
+    <label for="node-input-themeId"><i class="fa fa-tag"></i> <span data-i18n="shopify-online_store.label.themeId"></span></label>
+    <input type="text" id="node-input-themeId" data-i18n="[placeholder]shopify-online_store.placeholder.themeId" />
+  </div>
+  <div class="form-row" id="shopify-pageId-row">
+    <label for="node-input-pageId"><i class="fa fa-tag"></i> <span data-i18n="shopify-online_store.label.pageId"></span></label>
+    <input type="text" id="node-input-pageId" data-i18n="[placeholder]shopify-online_store.placeholder.pageId" />
+  </div>
+  <div class="form-row" id="shopify-dataJson-row">
+    <label for="node-input-dataJson"><i class="fa fa-tag"></i> <span data-i18n="shopify-online_store.label.dataJson"></span></label>
+    <input type="text" id="node-input-dataJson" placeholder="{}">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="shopify-online_store.label.name"></span></label>
+    <input type="text" id="node-input-name" data-i18n="[placeholder]shopify-online_store.placeholder.name" />
+  </div>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('shopify-online_store',{
+    category: 'storage-output',
+    color: '#66b51b',
+    defaults: {
+      auth: { type: 'shopify-auth', required: true },
+      resource: {value: '', required: true},
+      method: {value: '', required: true},
+      articleId: {value: ''},
+      blogId:{value: ''},
+      themeId: {value: ''},
+      commentId:{value: ''},
+      pageId: {value: ''},
+      dataJson: {value: '{}'},
+      name: {value: ''}
+    },
+    inputs:1,
+    outputs:1,
+    icon: 'font-awesome/fa-shopping-basket',
+    label: function() {
+      return this.name || "Shopify online store";
+    },
+    labelStyle: function () {
+      return this.name ? 'node_label_italic' : '';
+    },
+    oneditprepare: function() {
+      const node = this;
+
+      $("#node-input-dataJson").typedInput({
+        type:'json',
+        types:['json']
+      });
+
+      function SetMethodOption() {
+        const options = {
+          "article": [
+            {val: "authors", label: "Authors" },
+            {val: "count", label: "Count" },
+            {val: "create", label: "Create" },
+            {val: "delete", label: "Delete" },
+            {val: "get", label: "Get" },
+            {val: "list", label: "List" },
+            {val: "tags", label: "Tags" },
+            {val: "update", label: "Update" }
+          ],
+          "blog": [
+            {val: "count", label: "Count" },
+            {val: "create", label: "Create" },
+            {val: "delete", label: "Delete" },
+            {val: "get", label: "Get" },
+            {val: "list", label: "List" },
+            {val: "update", label: "Update" }
+          ],
+          "comment": [
+            {val: "approve", label: "Approve" },
+            {val: "count", label: "Count" },
+            {val: "create", label: "Create" },
+            {val: "remove", label: "Remove" },
+            {val: "get", label: "Get" },
+            {val: "list", label: "List" },
+            {val: "restore", label: "Restore" },
+            {val: "update", label: "Update" },
+            {val: "notSpam", label: "Not Spam" },
+            {val: "spam", label: "Spam" }
+          ],
+          "page": [
+            {val: "count", label: "Count" },
+            {val: "create", label: "Create" },
+            {val: "delete", label: "Delete" },
+            {val: "get", label: "Get" },
+            {val: "list", label: "List" },
+            {val: "update", label: "Update" }
+          ],
+          "theme": [
+            {val: "create", label: "Create" },
+            {val: "delete", label: "Delete" },
+            {val: "get", label: "Get" },
+            {val: "list", label: "List" },
+            {val: "update", label: "Update" }
+          ],
+        };
+        const resource = $("#node-input-resource option:selected").val();
+        let methodel = $("#node-input-method");
+
+        methodel.children().remove();
+        options[resource]?.map(opt => {
+          methodel.append('<option value="' + opt.val + '">'
+            + opt.label + '</option>');
+        });
+        methodel.val(node.method);
+      }
+
+      function ShowParameters() {
+        const resource = $("#node-input-resource option:selected").val();
+        const method = $("#node-input-method option:selected").val();
+
+        const articleIdRow = $("#shopify-articleId-row");
+        const blogIdRow = $("#shopify-blogId-row");
+        const themeIdRow = $("#shopify-themeId-row");
+        const pageIdRow = $("#shopify-pageId-row");
+        const commentIdRow = $("#shopify-commentId-row");
+
+        const dataJsonRow = $("#shopify-dataJson-row");
+
+        articleIdRow.hide();
+        blogIdRow.hide();
+        themeIdRow.hide();
+        pageIdRow.hide();
+        commentIdRow.hide();
+
+        dataJsonRow.hide();
+
+        if (resource === 'article') {
+          if (method) { if (method !== "authors") {
+            blogIdRow.show();
+            if (method !== "delete") {
+              dataJsonRow.show();
+            }
+          }
+          if (method === "update" || method === "get" || method === "delete"){
+            articleIdRow.show();
+          }
+        }
+        } else if (resource === 'blog') {
+          if (method && method !== "count" && method !== "delete") {
+            dataJsonRow.show();
+          }
+          if (method === "update" || method === "get" || method === "delete"){
+            blogIdRow.show();
+          }
+        } else if (resource === 'comment') {
+          if (method && method !== "count" && method !== "create" && method !== "list") {
+            commentIdRow.show();
+          }
+          if (method === "count" || method === "create" || method === "list" || method === "update" || method === "get") {
+            dataJsonRow.show();
+          }
+          if ( method === "create" ){
+            blogIdRow.show();
+            articleIdRow.show();
+          }
+        } else if (resource === 'page') {
+          if (method && method !== "count" && method !== "create" && method !== "list") {
+            pageIdRow.show();
+          }
+          if (method && method !== "delete") {
+            dataJsonRow.show();
+          }
+        } else if (resource === 'theme') {
+          if (method === "create" && method === "list") {
+            themeIdRow.show();
+          }
+          if (method && method !== "delete") {
+            dataJsonRow.show();
+          }
+        }
+      }
+
+      $("#node-input-resource").change(function() {
+        SetMethodOption();
+        ShowParameters();
+      });
+      $("#node-input-method").change(function() {
+        ShowParameters();
+      });
+    }
+  });
+
+</script>

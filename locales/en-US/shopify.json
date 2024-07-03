@@ -1,0 +1,17 @@
+{
+  "shopify-auth" : {
+      "label" : {
+          "shopName" : "Shop Name",
+          "appType" : "App Type",
+          "apiKey" : "API Key",
+          "password" : "password",
+          "accessToken" : "AccessToken"
+      },
+      "placeholder" : {
+          "shopName" : "shopName",
+          "apiKey" : "apiKey",
+          "password" : "password",
+          "accessToken" : "accessToken"
+      }
+  }
+}

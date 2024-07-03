@@ -1,0 +1,76 @@
+<!--
+  Copyright 2014 Atsushi Kojo.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/html" data-template-name="shopify-auth">
+  <div class="form-row">
+    <label for="node-config-input-shopName"><i class="fa fa-tag"></i> <span data-i18n="shopify-auth.label.shopName"></span></label>
+    <input type="text" id="node-config-input-shopName" data-i18n="[placeholder]shopify-auth.placeholder.shopName" />
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-appType"><i class="fa fa-wrench"></i> <span data-i18n="shopify-auth.label.appType"></span></label>
+    <select name="node-config-input-appType" id="node-config-input-appType">
+      <option value="private">Private apps</option>
+      <option value="custom">Custom apps</option>
+    </select>
+  </div>
+  <div class="form-row" id="config-apiKey-row">
+    <label for="node-config-input-apiKey"><i class="fa fa-lock"></i> <span data-i18n="shopify-auth.label.apiKey"></span></label>
+    <input type="password" id="node-config-input-apiKey" data-i18n="[placeholder]shopify-auth.placeholder.apiKey" />
+  </div>
+  <div class="form-row" id="config-password-row">
+    <label for="node-config-input-password"><i class="fa fa-lock"></i> <span data-i18n="shopify-auth.label.password"></span></label>
+    <input type="password" id="node-config-input-password" data-i18n="[placeholder]shopify-auth.placeholder.password" />
+  </div>
+  <div class="form-row" id="config-accessToken-row" style="display: none;">
+    <label for="node-config-input-accessToken"><i class="fa fa-lock"></i> <span data-i18n="shopify-auth.label.accessToken"></span></label>
+    <input type="password" id="node-config-input-accessToken" data-i18n="[placeholder]shopify-auth.placeholder.accessToken" />
+  </div>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('shopify-auth',{
+    category: 'config',
+    color: '#66b51b',
+    defaults: {
+      shopName: {value: '', required: true},
+      appType: {value: 'private'}
+    },
+    credentials: {
+      apiKey: {type:"password"},
+      password: {type:"password"},
+      accessToken: {type:"password"}
+    },
+    label: function() {
+      return this.shopName;
+    },
+    oneditprepare: function() {
+      $("#node-config-input-appType").change(function() {
+        const appType = $("#node-config-input-appType option:selected").val();
+
+        if (appType === 'private') {
+          $('#config-apiKey-row').show();
+          $('#config-password-row').show();
+          $('#config-accessToken-row').hide();
+
+        } else {
+          $('#config-apiKey-row').hide();
+          $('#config-password-row').hide();
+          $('#config-accessToken-row').show();
+        }
+      })
+    }
+  });
+</script>

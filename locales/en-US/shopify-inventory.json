@@ -1,0 +1,22 @@
+{
+  "shopify-inventory" : {
+      "label" : {
+          "resource" : "Resources",
+          "method" : "Methods",
+          "inventoryItemId" : "inventoryItemId",
+          "locationId" : "LocationId",
+          "available" : "Available",
+          "dataJson" : "Data JSON",
+          "name" : "Name"
+      },
+      "placeholder" : {
+          "inventoryItemId" : "inventoryItemId",
+          "locationId" : "LocationId",
+          "available" : "Available",
+          "name" : "Name"
+      },
+      "tip": {
+          "ids" : "a comma-separated list of IDs."
+      }
+  }
+}

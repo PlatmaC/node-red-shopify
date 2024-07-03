@@ -1,0 +1,17 @@
+{
+  "shopify-products" : {
+      "label" : {
+          "resource" : "Resources",
+          "method" : "Methods",
+          "productId" : "ProductId",
+          "variantId" : "VariantId",
+          "dataJson" : "Data JSON",
+          "name" : "Name"
+      },
+      "placeholder" : {
+          "productId" : "ProductId",
+          "variantId" : "VariantId",
+          "name" : "Name"
+    }
+  }
+}

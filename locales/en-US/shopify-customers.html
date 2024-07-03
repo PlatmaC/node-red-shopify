@@ -1,0 +1,115 @@
+<script type="text/x-red" data-help-name="shopify-customers">
+  <p>Use the Shopify REST Admin API to perform the following actions selected in <code>Resources</code> and <code>Methods</code></p>
+  <ul>
+    <li>Customer
+      <ul>
+        <li>List</li>
+        <li>Get</li>
+        <li>Create</li>
+        <li>Update</li>
+        <li>Delete</li>
+      </ul>
+    </li>
+    <li>Customer Address
+      <ul>
+        <li>List</li>
+        <li>Get</li>
+        <li>Create</li>
+        <li>Update</li>
+        <li>Delete</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>customerId <span class="property-type">string</span></dt>
+        <dd>Enter the Customer ID to execute the selected process.</dd>
+        <dt>addressId <span class="property-type">string</span></dt>
+        <dd>Enter the Customer Address ID to execute the selected process.</dd>
+        <dt>dataJson <span class="property-type">string | object</span></dt>
+        <dd>Enter the JSON object of the data to be processed for the selected process.</dd>
+    </dl>
+
+  <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">object</span></dt>
+        <dd>Outputs the execution result of the selected process.</dd>
+    </dl>
+
+  <h3>Details</h3>
+  <h4>Customer</h4>
+  <h5>List</h5>
+    <p>Retrieves a list of customers.</p>
+    <p>Outputs the retrieved customer list.</p>
+
+  <h5>Get</h5>
+    <p>Retrieves a single customer.</p>
+    <p>Enter the customer ID to be retrieved in <code>msg.customerId</code>.</p>
+    <p>Outputs the retrieved customer records.</p>
+
+  <h5>Create</h5>
+    <p>Creates a customer.</p>
+    <p>Enter the data for the record to be created in <code>msg.dataJson</code>.</p>
+    <pre>{"first_name": "taro",
+  "last_name": "test",
+  "email": "taro@example.com"}</pre>
+    <p>Outputs the created customer records.</p>
+
+  <h5>Update</h5>
+    <p>Updates a customer.</p>
+    <p>Enter the customer ID to be updated in <code>msg.customerId</code>.</p>
+    <p>Enter the data for the record to be updated in <code>msg.dataJson</code>.</p>
+    <pre>{"phone": "03-1111-2222"}</pre>
+    <p>Outputs the updated customer records.</p>
+
+  <h5>Delete</h5>
+    <p>Removes a customer.</p>
+    <p>Enter the customer ID to be deleted in <code>msg.customerId</code>.</p>
+    <p>Outputs deleted records (empty).</p>
+
+  <h4>Customer Address</h4>
+  <h5>List</h5>
+    <p>Retrieves a list of addresses for a customer.</p>
+    <p>Enter the customer ID for which the address is to be retrieved in <code>msg.customerId</code>.</p>
+    <p>Outputs a list of retrieved customer addresses.</p>
+
+  <h5>Get</h5>
+    <p>Retrieves details for a single customer address.</p>
+    <p>Enter the customer ID for which the address is to be retrieved in <code>msg.customerId</code>.</p>
+    <p>Enter the customer address ID to be retrieved in <code>msg.addressId</code>.</p>
+    <p>Outputs the retrieved customer address records.</p>
+
+  <h5>Create</h5>
+    <p>Creates a new address for a customer.</p>
+    <p>Enter the customer ID for which the address is to be created in <code>msg.customerId</code>.</p>
+    <p>Enter the data for the record to be created in <code>msg.dataJson</code>.</p>
+    <pre>{"country": "Japan",
+  "city": "Tokyo"}</pre>
+    <p>Outputs the created customer address records.</p>
+
+  <h5>Update</h5>
+    <p>Updates an existing customer address.</p>
+    <p>Enter the customer ID for which the address is to be updated in <code>msg.customerId</code>.</p>
+    <p>Enter the customer address ID to be updated in <code>msg.addressId</code>.</p>
+    <p>Enter the data for the record to be updated in <code>msg.dataJson</code>.</p>
+    <pre>{"zip": "105-0001"}</pre>
+    <p>Outputs the updated customer address records.</p>
+
+  <h5>Delete</h5>
+    <p>Removes an address from a customer’s address list.</p>
+    <p>Enter the customer ID for which the address is to be deleted in <code>msg.customerId</code>.</p>
+    <p>Enter the customer address ID to be deleted in <code>msg.addressId</code>.</p>
+    <p>Outputs deleted records (empty).</p>
+
+  <p></p>
+  <p><b>Note</b>: Input items can also be entered in the node's edit dialog, but the value passed in <code>msg.xx</code> takes precedence.</p>
+
+
+<h3>References</h3>
+  <p>For more information, see the Shopify REST Admin API reference.</p>
+  <ul>
+    <li><a href="https://shopify.dev/api/admin-rest/2022-07/resources/customer">Customer</a></li>
+    <li><a href="https://shopify.dev/api/admin-rest/2022-07/resources/customer-address">Customer Address</a></li>
+  </ul>
+</script>

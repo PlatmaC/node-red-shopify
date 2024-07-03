@@ -1,0 +1,132 @@
+<!--
+  Copyright 2014 Atsushi Kojo.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/html" data-template-name="shopify-customers">
+  <div class="form-row">
+    <label for="node-input-auth"><i class="fa fa-user"></i> Shopify</label>
+    <input type="text" id="node-input-auth">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-resource"><i class="fa fa-wrench"></i> <span data-i18n="shopify-customers.label.resource"></span></label>
+    <select id="node-input-resource">
+      <option value="customer">Customer</option>
+      <option value="customerAddress">Customer Address</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="node-input-method"><i class="fa fa-wrench"></i> <span data-i18n="shopify-customers.label.method"></span></label>
+    <select id="node-input-method">
+      <option value="list">List</option>
+      <option value="get">Get</option>
+      <option value="create">Create</option>
+      <option value="update">Update</option>
+      <option value="delete">Delete</option>
+    </select>
+  </div>
+  <div class="form-row" id="shopify-customerId-row">
+    <label for="node-input-customerId"><i class="fa fa-tag"></i> <span data-i18n="shopify-customers.label.customerId"></span></label>
+    <input type="text" id="node-input-customerId" data-i18n="[placeholder]shopify-customers.placeholder.customerId" />
+  </div>
+  <div class="form-row" id="shopify-addressId-row">
+    <label for="node-input-addressId"><i class="fa fa-tag"></i> <span data-i18n="shopify-customers.label.addressId"></span></label>
+    <input type="text" id="node-input-addressId" data-i18n="[placeholder]shopify-customers.placeholder.addressId" />
+  </div>
+  <div class="form-row" id="shopify-dataJson-row">
+    <label for="node-input-dataJson"><i class="fa fa-tag"></i> <span data-i18n="shopify-customers.label.dataJson"></span></label>
+    <input type="text" id="node-input-dataJson" placeholder="{}" />
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="shopify-customers.label.name"></span></label>
+    <input type="text" id="node-input-name" data-i18n="[placeholder]shopify-customers.placeholder.name" />
+  </div>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('shopify-customers',{
+    category: 'storage-output',
+    color: '#66b51b',
+    defaults: {
+      auth: { type: 'shopify-auth', required: true },
+      resource: {value: '', required: true},
+      method: {value: '', required: true},
+      customerId: {value: ''},
+      addressId: {value: ''},
+      dataJson: {value: '{}'},
+      name: {value: ''}
+    },
+    inputs:1,
+    outputs:1,
+    icon: 'font-awesome/fa-shopping-basket',
+    label: function() {
+      return this.name || "Shopify customers";
+    },
+    labelStyle: function () {
+      return this.name ? 'node_label_italic' : '';
+    },
+    oneditprepare: function() {
+      $("#node-input-dataJson").typedInput({
+        type:'json',
+        types:['json']
+      });
+
+      function ShowParameters() {
+        const resource = $("#node-input-resource option:selected").val();
+        const method = $("#node-input-method option:selected").val();
+
+        const customerIdRow = $("#shopify-customerId-row");
+        const addressIdRow = $("#shopify-addressId-row");
+        const dataJsonRow = $("#shopify-dataJson-row");
+
+        customerIdRow.hide();
+        addressIdRow.hide();
+        dataJsonRow.hide();
+
+        if (resource === 'customer') {
+          if (method === "get" || method === "delete") {
+            customerIdRow.show();
+          } else if (method === "create") {
+            dataJsonRow.show();
+          } else if (method === "update") {
+            customerIdRow.show();
+            dataJsonRow.show();
+          }
+
+        } else if (resource === 'customerAddress') {
+          customerIdRow.show();
+
+          if (method === "get" || method === "delete") {
+            addressIdRow.show();
+          } else if (method === "create") {
+            dataJsonRow.show();
+          } else if (method === "update") {
+            addressIdRow.show();
+            dataJsonRow.show();
+          }
+        }
+      }
+
+      $("#node-input-resource").change(function() {
+        ShowParameters();
+      });
+      $("#node-input-method").change(function() {
+        ShowParameters();
+      });
+    }
+  });
+
+</script>

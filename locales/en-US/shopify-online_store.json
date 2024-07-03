@@ -1,0 +1,23 @@
+{
+  "shopify-online_store" : {
+      "label" : {
+          "resource" : "Resources",
+          "method" : "Methods",
+          "articleId": "ArticleId",
+          "blogId": "BlogId",
+          "themeId": "ThemeId",
+          "commentId": "CommentId",
+          "pageId": "PageId",
+          "dataJson" : "Data JSON",
+          "name" : "Name"
+      },
+      "placeholder" : {
+          "articleId": "ArticleId",
+          "blogId": "BlogId",
+          "themeId": "ThemeId",
+          "commentId": "CommentId",
+          "pageId": "PageId",
+          "name" : "Name"
+      }
+  }
+}

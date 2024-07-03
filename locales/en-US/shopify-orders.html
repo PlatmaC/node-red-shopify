@@ -1,0 +1,115 @@
+<script type="text/x-red" data-help-name="shopify-orders">
+  <p>Use the Shopify REST Admin API to perform the following actions selected in <code>Resources</code> and <code>Methods</code></p>
+  <ul>
+    <li>DraftOrder
+      <ul>
+        <li>List</li>
+        <li>Get</li>
+        <li>Create</li>
+        <li>Update</li>
+        <li>Delete</li>
+      </ul>
+    </li>
+    <li>Order
+      <ul>
+        <li>List</li>
+        <li>Get</li>
+        <li>Create</li>
+        <li>Update</li>
+        <li>Delete</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>draftOrderId <span class="property-type">string</span></dt>
+        <dd>Enter the Draft Order ID to execute the selected process.</dd>
+        <dt>orderId <span class="property-type">string</span></dt>
+        <dd>Enter the Order ID to execute the selected process.</dd>
+        <dt>dataJson <span class="property-type">string | object</span></dt>
+        <dd>Enter the JSON object of the data to be processed for the selected process.</dd>
+    </dl>
+
+  <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">object</span></dt>
+        <dd>Outputs the execution result of the selected process.</dd>
+    </dl>
+
+  <h3>Details</h3>
+  <h4>DraftOrder</h4>
+  <h5>List</h5>
+    <p>Retrieves a list of draft orders.</p>
+    <p>Outputs the retrieved draft order list.</p>
+
+  <h5>Get</h5>
+    <p>Receive a single DraftOrder.</p>
+    <p>Enter the draft order ID to be retrieved in <code>msg.draftOrderId</code>.</p>
+    <p>Outputs the retrieved draft order record.</p>
+
+  <h5>Create</h5>
+    <p>Create a new DraftOrder.</p>
+    <p>Enter the data for the record to be created in <code>msg.dataJson</code>.</p>
+    <pre>{ "line_items": [
+  {
+    "variant_id": 447654529,
+    "quantity": 1
+  }
+]}</pre>
+    <p>Outputs the created draft order records.</p>
+
+  <h5>Update</h5>
+    <p>Modify an existing DraftOrder.</p>
+    <p>Enter the draft order ID to be updated in <code>msg.draftOrderId</code>.</p>
+    <p>Enter the data for the record to be updated in <code>msg.dataJson</code>.</p>
+    <pre>{"note": "draft order update test"}</pre>
+    <p>Outputs the updated draft order records.</p>
+
+  <h5>Delete</h5>
+    <p>Remove an existing DraftOrder.</p>
+    <p>Enter the draft order ID to be deleted in <code>msg.draftOrderId</code>.</p>
+    <p>Outputs deleted records (empty).</p>
+
+  <h4>Order</h4>
+  <h5>List</h5>
+    <p>Retrieve a list of orders.</p>
+    <p>Outputs the retrieved order list.</p>
+
+  <h5>Get</h5>
+    <p>Retrieve a specific order.</p>
+    <p>Enter the order ID to be retrieved in <code>msg.orderId</code>.</p>
+    <p>Outputs the retrieved order records.</p>
+
+  <h5>Create</h5>
+    <p>Create an order.</p>
+    <p>Enter the data for the record to be created in <code>msg.dataJson</code>.</p>
+    <pre>{ "line_items":[
+    { "variant_id": 447654529, "quantity": 1 }
+  ],
+  "customer": { "id": 207119551 }
+}</pre>
+    <p>Outputs the created order records.</p>
+
+  <h5>Update</h5>
+    <p>Update an order.</p>
+    <p>Enter the order ID to be updated in <code>msg.orderId</code>.</p>
+    <p>Enter the data for the record to be updated in <code>msg.dataJson</code>.</p>
+    <pre>{"note": "order update test"}</pre>
+    <p>Outputs the updated order records.</p>
+
+  <h5>Delete</h5>
+    <p>Delete an order.</p>
+    <p>Enter the order ID to be deleted in <code>msg.orderId</code>.</p>
+    <p>Outputs deleted records (empty).</p>
+
+  <p></p>
+  <p><b>Note</b>: Input items can also be entered in the node's edit dialog, but the value passed in <code>msg.xx</code> takes precedence.</p>
+
+<h3>References</h3>
+  <p>For more information, see the Shopify REST Admin API reference.</p>
+  <ul>
+    <li><a href="https://shopify.dev/api/admin-rest/2022-07/resources/draftorder">DraftOrder</a></li>
+    <li><a href="https://shopify.dev/api/admin-rest/2022-07/resources/order">Order</a></li>
+  </ul>
+</script>

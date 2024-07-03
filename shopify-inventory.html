@@ -1,0 +1,180 @@
+<!--
+  Copyright 2014 Atsushi Kojo.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/html" data-template-name="shopify-inventory">
+  <div class="form-row">
+    <label for="node-input-auth"><i class="fa fa-user"></i> Shopify</label>
+    <input type="text" id="node-input-auth">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-resource"><i class="fa fa-wrench"></i> <span data-i18n="shopify-inventory.label.resource"></span></label>
+    <select id="node-input-resource">
+      <option value="inventoryItem">InventoryItem</option>
+      <option value="inventoryLevel">InventoryLevel</option>
+      <option value="location">Location</option>
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="node-input-method"><i class="fa fa-wrench"></i> <span data-i18n="shopify-inventory.label.method"></span></label>
+    <select id="node-input-method"></select>
+  </div>
+  <div class="form-tips shopify-ids-tip" id="node-tip">
+    <span data-i18n="shopify-inventory.tip.ids"></span>
+  </div>
+  <div class="form-row" id="shopify-inventoryItemId-row">
+    <label for="node-input-inventoryItemId"><i class="fa fa-tag"></i> <span data-i18n="shopify-inventory.label.inventoryItemId"></span></label>
+    <input type="text" id="node-input-inventoryItemId" data-i18n="[placeholder]shopify-inventory.placeholder.inventoryItemId" />
+  </div>
+  <div class="form-row" id="shopify-locationId-row">
+    <label for="node-input-locationId"><i class="fa fa-tag"></i> <span data-i18n="shopify-inventory.label.locationId"></span></label>
+    <input type="text" id="node-input-locationId" data-i18n="[placeholder]shopify-inventory.placeholder.locationId" />
+  </div>
+  <div class="form-row" id="shopify-available-row">
+    <label for="node-input-available"><i class="fa fa-tag"></i> <span data-i18n="shopify-inventory.label.available"></span></label>
+    <input type="text" id="node-input-available" data-i18n="[placeholder]shopify-inventory.placeholder.available" />
+  </div>
+  <div class="form-row" id="shopify-dataJson-row">
+    <label for="node-input-dataJson"><i class="fa fa-tag"></i> <span data-i18n="shopify-inventory.label.dataJson"></span></label>
+    <input type="text" id="node-input-dataJson" placeholder="{}">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="shopify-inventory.label.name"></span></label>
+    <input type="text" id="node-input-name" data-i18n="[placeholder]shopify-inventory.placeholder.name" />
+  </div>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('shopify-inventory',{
+    category: 'storage-output',
+    color: '#66b51b',
+    defaults: {
+      auth: { type: 'shopify-auth', required: true },
+      resource: {value: '', required: true},
+      method: {value: '', required: true},
+      inventoryItemId: {value: ''},
+      locationId: {value: ''},
+      available: {value: ''},
+      dataJson: {value: '{}'},
+      name: {value: ''}
+    },
+    inputs:1,
+    outputs:1,
+    icon: 'font-awesome/fa-shopping-basket',
+    label: function() {
+      return this.name || "Shopify inventory";
+    },
+    labelStyle: function () {
+      return this.name ? 'node_label_italic' : '';
+    },
+    oneditprepare: function() {
+      const node = this;
+
+      $("#node-input-dataJson").typedInput({
+        type:'json',
+        types:['json']
+      });
+
+      function SetMethodOption() {
+        const options = {
+          "inventoryItem": [
+            {val: "list", label: "List" },
+            {val: "get", label: "Get" },
+            {val: "update", label: "Update" }
+          ],
+          "inventoryLevel": [
+            {val: "list", label: "List" },
+            {val: "set", label: "Set" },
+            {val: "adjust", label: "Adjust" },
+            {val: "delete", label: "Delete" },
+          ],
+          "location": [
+            {val: "list", label: "List" },
+            {val: "get", label: "Get" },
+            {val: "inventoryLevels", label: "inventoryLevels" },
+          ]
+        };
+        const resource = $("#node-input-resource option:selected").val();
+        let methodel = $("#node-input-method");
+
+        methodel.children().remove();
+        options[resource]?.map(opt => {
+          methodel.append('<option value="' + opt.val + '">'
+            + opt.label + '</option>');
+        });
+        methodel.val(node.method);
+      }
+
+      function ShowParameters() {
+        const resource = $("#node-input-resource option:selected").val();
+        const method = $("#node-input-method option:selected").val();
+
+        const inventoryItemIdRow = $("#shopify-inventoryItemId-row");
+        const locationIdRow = $("#shopify-locationId-row");
+        const availableRow = $("#shopify-available-row");
+        const dataJsonRow = $("#shopify-dataJson-row");
+        const idsTip = $(".shopify-ids-tip");
+
+        inventoryItemIdRow.hide();
+        locationIdRow.hide();
+        availableRow.hide();
+        dataJsonRow.hide();
+        idsTip.hide();
+
+        if (resource === 'inventoryItem') {
+          if (method === "list") {
+            inventoryItemIdRow.show();
+            idsTip.show();
+          } else if (method === "get") {
+            inventoryItemIdRow.show();
+          } else if (method === "update") {
+            inventoryItemIdRow.show();
+            dataJsonRow.show();
+          }
+
+        } else if (resource === 'inventoryLevel') {
+          if (method === "list") {
+            inventoryItemIdRow.show();
+            locationIdRow.show();
+            idsTip.show();
+          } else if (method === "set" || method === "adjust") {
+            inventoryItemIdRow.show();
+            locationIdRow.show();
+            availableRow.show();
+          } else if (method === "delete") {
+            inventoryItemIdRow.show();
+            locationIdRow.show();
+          }
+
+        } else if (resource === 'location') {
+          if (method === "get" || method === "inventoryLevels") {
+            locationIdRow.show();
+          }
+        }
+      }
+
+      $("#node-input-resource").change(function() {
+        SetMethodOption();
+        ShowParameters();
+      });
+      $("#node-input-method").change(function() {
+        ShowParameters();
+      });
+    }
+  });
+
+</script>
