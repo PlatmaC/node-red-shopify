@@ -1,6 +1,6 @@
 {
   "name": "@platmac/node-red-shopify",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Hooke Jr. <platma@platma.com>",
   "description": "A collection of Node-RED nodes for Shopify Admin API / REST.",
   "license": "Apache-2.0",
