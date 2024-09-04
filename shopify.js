@@ -121,6 +121,60 @@ module.exports = function (RED) {
 
 
   const ShopifyAPIRequests = {
+    "assignedFulfillmentOrder": {
+      "get": { params: ["dataJson"], paging: false },
+    },
+    "cancellationRequest": {
+      "create": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+      "accept": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+      "reject": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+    },
+    "carrierService": {
+      "create": { params: ["dataJson"], paging: false },
+      "list": { params: [], paging: false },
+      "get": { params: ["carrierServiceId"], paging: false },
+      "update": { params: ["carrierServiceId", "dataJson"], paging: false },
+      "delete": { params: ["carrierServiceId"], paging: false },
+    },
+    "fulfillment": {
+      "create": { params: ["lineItemsByFulfillmentOrder", "dataJson"], paging: false },
+      "cancel": { params: ["fulfillmentId"], paging: false },
+      "update": { params: ["fulfillmentId", "dataJson"], paging: false },
+      "listForOrder": { params: ["fulfillmentOrderId"], paging: false },//
+      "get": { params: ["orderId", "dataJson"], paging: false },
+      "count": { params: ["fulfillmentId", "orderId", "dataJson"], paging: false },
+    },
+    "fulfillmentEvent": {
+      "create": { params: ["fulfillmentId", "orderId"], paging: false },
+      "list": { params: ["fulfillmentId", "orderId"], paging: false },
+      "get": { params: ["eventId", "fulfillmentId", "orderId"], paging: false },
+      "delete": { params: ["eventId", "fulfillmentId", "orderId"], paging: false },
+    },
+    "fulfillmentOrder": {
+      "cancel": { params: ["fulfillmentOrderId"], paging: false },
+      //"setIncomplete": { params: ["fulfillmentOrderId", "message"], paging: false }, //
+      //"fulfillmentholdonopenorder": { params: ["fulfillment_order_id", "fulfillment_hold"], paging: false }, //
+      "movetonewlocation": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+      //"setOpen": { params: ["fulfillment_order_id",], paging: false }, //
+      //"fulfillmentrelease": { params: ["fulfillment_order_id"], paging: false }, //
+      //"rescheduleFulfill_atTime": { params: ["fulfillment_order_id", "new_fulfill_at"], paging: false }, //
+      "setDeadline": { params: ["fulfillmentOrderIds", "dataJson"], paging: false }, 
+      "get": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+      "listForOrder": { params: ["orderId", "dataJson"], paging: false },
+      "locationsForMove": { params: ["fulfillmentOrderId"], paging: false },
+    },
+    "fulfillmentRequest": {
+     "create": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+     "accept": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+     "reject": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+    },
+    "fulfillmentService": {
+     "create": { params: ["dataJson"], paging: false },
+     "list": { params: ["dataJson"], paging: false },
+     "get": { params: ["fulfillmentServiceId"], paging: false },
+     "update": { params: ["fulfillmentServiceId", "dataJson"], paging: false },
+     "delete": { params: ["fulfillmentServiceId"], paging: false },
+    },
     "blog": {
       "count": { params: ["dataJson"], paging: false },
       "list": { params: ["dataJson"], paging: true },

@@ -136,29 +136,26 @@
         idsTip.hide();
 
         if (resource === 'inventoryItem') {
-          if (method === "list") {
-            inventoryItemIdRow.show();
-            idsTip.show();
-          } else if (method === "get") {
-            inventoryItemIdRow.show();
-          } else if (method === "update") {
-            inventoryItemIdRow.show();
+          if (method !== "get") {
             dataJsonRow.show();
+          } 
+          if (method === "get" || method === "update") {
+            inventoryItemIdRow.show();
           }
 
         } else if (resource === 'inventoryLevel') {
-          if (method === "list") {
-            inventoryItemIdRow.show();
-            locationIdRow.show();
-            idsTip.show();
-          } else if (method === "set" || method === "adjust") {
-            inventoryItemIdRow.show();
-            locationIdRow.show();
-            availableRow.show();
-          } else if (method === "delete") {
-            inventoryItemIdRow.show();
-            locationIdRow.show();
-          }
+          // if (method === "list") {
+          //   inventoryItemIdRow.show();
+          //   locationIdRow.show();
+          //   idsTip.show();
+          // } else if (method === "set" || method === "adjust") {
+          //   inventoryItemIdRow.show();
+          //   locationIdRow.show();
+            dataJsonRow.show();
+          // } else if (method === "delete") {
+          //   inventoryItemIdRow.show();
+          //   locationIdRow.show();
+          // }
 
         } else if (resource === 'location') {
           if (method === "get" || method === "inventoryLevels") {

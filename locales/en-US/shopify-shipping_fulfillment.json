@@ -1,0 +1,50 @@
+{
+  "shopify-shipping_fulfillment" : {
+      "label" : {
+          "resource" : "Resources",
+          "method" : "Methods",
+          "fulfillmentOrderId": "Fulfillment OrderId",
+          "carrierServiceId": "Carrier ServiceId",
+          "lineItemsByFulfillmentOrder": "Line items by fulfillment order",
+          "fulfillmentId": "FulfillmentId",
+          "tracking_info": "Tracking info",
+          "eventId": "EventId",
+          "fulfillment_hold": "Fulfillment hold",
+          "fulfillment_order": "Fulfillment order",
+          "new_fulfill_at": "New fulfill at",
+          "fulfillmentServiceId": "Fulfillment ServiceId",
+          "dataJson" : "Data JSON",
+          "message" : "Message",
+          "fulfillmentOrderIds":"Fulfillment order ids list",
+          "notify_customer":"Notify customer",
+          "assignment_status":"Assignment status",
+          "location_ids":"Location ids",
+          "fulfillment_deadline":"Fulfillment deadline",
+          "orderId":"Order id",
+          "scope":"Scope",
+          "name" : "Name"
+      },
+      "placeholder" : {
+          "fulfillmentOrderId": "Fulfillment order id",
+          "carrierServiceId": "Carrier service id",
+          "lineItemsByFulfillmentOrder": "Line items by fulfillment order",
+          "fulfillmentId": "Fulfillment id",
+          "tracking_info": "Tracking info",
+          "eventId": "Event id",
+          "fulfillment_hold": "Fulfillment hold",
+          "fulfillment_order": "Fulfillment order",
+          "new_fulfill_at": "New fulfill at",
+          "fulfillmentServiceId": "Fulfillment service id",
+          "dataJson" : "Data JSON",
+          "message" : "Message",
+          "fulfillmentOrderIds":"Fulfillment order ids list",
+          "notify_customer":"Notify customer",
+          "assignment_status":"Assignment status",
+          "location_ids":"Location ids",
+          "fulfillment_deadline":"Fulfillment deadline",
+          "orderId":"Order id",
+          "scope":"Scope",
+          "name" : "Name"
+      }
+  }
+}

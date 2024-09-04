@@ -1,0 +1,296 @@
+<!--
+  Copyright 2014 Atsushi Kojo.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/html" data-template-name="shopify-shipping_fulfillment">
+  <div class="form-row">
+    <label for="node-input-auth"><i class="fa fa-user"></i> Shopify</label>
+    <input type="text" id="node-input-auth">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-resource"><i class="fa fa-wrench"></i> <span data-i18n="shopify-shipping_fulfillment.label.resource"></span></label>
+    <select id="node-input-resource">
+      <option value="assignedFulfillmentOrder">Assigned Fulfillment Order</option>
+      <option value="cancellationRequest">Cancellation Request</option>
+      <option value="carrierService">Carrier Service</option>
+      <option value="fulfillment">Fulfillment</option>
+      <option value="fulfillmentEvent">Fulfillment Event</option>
+      <option value="fulfillmentOrder">Fulfillment Order</option>
+      <option value="fulfillmentRequest">Fulfillment Request</option>
+      <option value="fulfillmentService">Fulfillment Service</option>
+
+    </select>
+  </div>
+  <div class="form-row">
+    <label for="node-input-method"><i class="fa fa-wrench"></i> <span data-i18n="shopify-shipping_fulfillment.label.method"></span></label>
+    <select id="node-input-method"></select>
+  </div>
+  <div class="form-row" id="shopify-fulfillmentOrderId-row">
+    <label for="node-input-fulfillmentOrderId"><i class="fa fa-tag"></i> <span data-i18n="shopify-shipping_fulfillment.label.fulfillmentOrderId"></span></label>
+    <input type="text" id="node-input-fulfillmentOrderId" data-i18n="[placeholder]shopify-shipping_fulfillment.placeholder.fulfillmentOrderId" />
+  </div>
+  <div class="form-row" id="shopify-carrierServiceId-row">
+    <label for="node-input-carrierServiceId"><i class="fa fa-tag"></i> <span data-i18n="shopify-shipping_fulfillment.label.carrierServiceId"></span></label>
+    <input type="text" id="node-input-carrierServiceId" data-i18n="[placeholder]shopify-shipping_fulfillment.placeholder.carrierServiceId" />
+  </div>
+  <div class="form-row" id="shopify-lineItemsByFulfillmentOrder-row">
+    <label for="node-input-lineItemsByFulfillmentOrder"><i class="fa fa-tag"></i> <span data-i18n="shopify-shipping_fulfillment.label.lineItemsByFulfillmentOrder"></span></label>
+    <input type="text" id="node-input-lineItemsByFulfillmentOrder" data-i18n="[placeholder]shopify-shipping_fulfillment.placeholder.lineItemsByFulfillmentOrder" />
+  </div>
+  <div class="form-row" id="shopify-fulfillmentId-row">
+    <label for="node-input-fulfillmentId"><i class="fa fa-tag"></i> <span data-i18n="shopify-shipping_fulfillment.label.fulfillmentId"></span></label>
+    <input type="text" id="node-input-fulfillmentId" data-i18n="[placeholder]shopify-shipping_fulfillment.placeholder.fulfillmentId" />
+  </div>
+  <div class="form-row" id="shopify-eventId-row">
+    <label for="node-input-eventId"><i class="fa fa-tag"></i> <span data-i18n="shopify-shipping_fulfillment.label.eventId"></span></label>
+    <input type="text" id="node-input-eventId" data-i18n="[placeholder]shopify-shipping_fulfillment.placeholder.eventId" />
+  </div>
+  <div class="form-row" id="shopify-fulfillmentServiceId-row">
+    <label for="node-input-fulfillmentServiceId"><i class="fa fa-tag"></i> <span data-i18n="shopify-shipping_fulfillment.label.fulfillmentServiceId"></span></label>
+    <input type="text" id="node-input-fulfillmentServiceId" data-i18n="[placeholder]shopify-shipping_fulfillment.placeholder.fulfillmentServiceId" />
+  </div>
+  <div class="form-row" id="shopify-fulfillmentOrderIds-row">
+    <label for="node-input-fulfillmentOrderIds"><i class="fa fa-tag"></i> <span data-i18n="shopify-shipping_fulfillment.label.fulfillmentOrderIds"></span></label>
+    <input type="text" id="node-input-fulfillmentOrderIds" data-i18n="[placeholder]shopify-shipping_fulfillment.placeholder.fulfillmentOrderIds" />
+  </div>
+  <div class="form-row" id="shopify-orderId-row">
+    <label for="node-input-orderId"><i class="fa fa-tag"></i> <span data-i18n="shopify-shipping_fulfillment.label.orderId"></span></label>
+    <input type="text" id="node-input-orderId" data-i18n="[placeholder]shopify-shipping_fulfillment.placeholder.orderId" />
+  </div>
+  <div class="form-row" id="shopify-dataJson-row">
+    <label for="node-input-dataJson"><i class="fa fa-tag"></i> <span data-i18n="shopify-shipping_fulfillment.label.dataJson"></span></label>
+    <input type="text" id="node-input-dataJson" placeholder="{}">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="shopify-shipping_fulfillment.label.name"></span></label>
+    <input type="text" id="node-input-name" data-i18n="[placeholder]shopify-shipping_fulfillment.placeholder.name" />
+  </div>
+</script>
+
+<script type="text/javascript">
+  RED.nodes.registerType('shopify-shipping_fulfillment',{
+    category: 'storage-output',
+    color: '#66b51b',
+    defaults: {
+      auth: { type: 'shopify-auth', required: true },
+      resource: {value: '', required: true},
+      method: {value: '', required: true},
+      fulfillmentOrderId: {value: ''},
+      carrierServiceId: {value: ''},
+      lineItemsByFulfillmentOrder: {value: ''},
+      fulfillmentId: {value: ''},
+      eventId: {value: ''},
+      fulfillmentServiceId: {value: ''},
+      fulfillmentOrderIds: {value: ''},
+      orderId: {value: ''},
+      dataJson: {value: '{}'},
+      name: {value: ''}
+    },
+    inputs:1,
+    outputs:1,
+    icon: 'font-awesome/fa-shopping-basket',
+    label: function() {
+      return this.name || "Shopify shipping and fulfillment";
+    },
+    labelStyle: function () {
+      return this.name ? 'node_label_italic' : '';
+    },
+    oneditprepare: function() {
+      const node = this;
+
+      $("#node-input-dataJson").typedInput({
+        type:'json',
+        types:['json']
+      });
+  
+      function SetMethodOption() {
+        const options = {
+          "assignedFulfillmentOrder": [
+            {val: "get", label: "Get" }
+          ],
+          "cancellationRequest": [
+            {val: "create", label: "Send cancelation request" },
+            {val: "accept", label: "Accept cancelation request" },
+            {val: "reject", label: "Reject cancelation request" }
+          ],
+          "carrierService": [
+            {val: "create", label: "Create" },
+            {val: "list", label: "List" },
+            {val: "get", label: "Get" },
+            {val: "update", label: "Update" },
+            {val: "delete", label: "Remove" }
+          ],
+          "fulfillment": [
+            {val: "create", label: "Create" },
+            {val: "cancel", label: "Cancel" },
+            {val: "update", label: "Update" },
+            {val: "listForOrder", label: "List for order" },//
+            {val: "get", label: "Get" },
+            {val: "count", label: "Count" }
+          ],
+          "fulfillmentEvent": [
+            {val: "create", label: "Create" },
+            {val: "list", label: "List" },
+            {val: "get", label: "Get" },
+            {val: "delete", label: "Delete" }
+          ],
+          "fulfillmentOrder": [
+            {val: "cancel", label: "Cancel" },
+            //{val: "setIncomplete", label: "Set incomplete" }, //
+            //{val: "fulfillmentholdonopenorder", label: "Fulfillment hold on open order" }, //
+            {val: "movetonewlocation", label: "Move to new location" },
+            //{val: "setOpen", label: "Set open" }, //
+            //{val: "fulfillmentrelease", label: "Fulfillment release" }, //
+            //{val: "rescheduleFulfill_atTime", label: "Reschedule fulfill_at time of a scheduled fulfillment order" }, //
+            {val: "setDeadline", label: "Set deadline for fulfill" }, 
+            {val: "get", label: "Get" },
+            {val: "listForOrder", label: "List for order" },
+            {val: "locationsForMove", label: "List of locations for move" }
+          ],
+          "fulfillmentRequest": [
+            {val: "create", label: "Send fulfillment request" },
+            {val: "accept", label: "Accept fulfillment request" },
+            {val: "reject", label: "Reject fulfillment request" }
+          ],
+          "fulfillmentService": [
+            {val: "create", label: "Create" },
+            {val: "list", label: "List" },
+            {val: "get", label: "Get" },
+            {val: "update", label: "Update" },
+            {val: "delete", label: "Delete" }
+          ],
+        };
+        const resource = $("#node-input-resource option:selected").val();
+        let methodel = $("#node-input-method");
+
+        methodel.children().remove();
+        options[resource]?.map(opt => {
+          methodel.append('<option value="' + opt.val + '">'
+            + opt.label + '</option>');
+        });
+        methodel.val(node.method);
+      }
+
+      function ShowParameters() {
+        const resource = $("#node-input-resource option:selected").val();
+        const method = $("#node-input-method option:selected").val();
+
+        const fulfillmentOrderIdRow = $("#shopify-fulfillmentOrderId-row");
+        const carrierServiceIdRow = $("#shopify-carrierServiceId-row");
+        const lineItemsByFulfillmentOrderRow = $("#shopify-lineItemsByFulfillmentOrder-row");
+        const fulfillmentIdRow = $("#shopify-fulfillmentId-row");
+        const eventIdRow = $("#shopify-eventId-row");
+        const fulfillmentServiceIdRow = $("#shopify-fulfillmentServiceId-row");
+        const fulfillmentOrderIdsRow = $("#shopify-fulfillmentOrderIds-row");
+        const orderIdRow = $("#shopify-orderId-row");
+
+        const dataJsonRow = $("#shopify-dataJson-row");
+        fulfillmentOrderIdRow.hide();
+        carrierServiceIdRow.hide();
+        lineItemsByFulfillmentOrderRow.hide();
+        fulfillmentIdRow.hide();
+        eventIdRow.hide();
+        fulfillmentServiceIdRow.hide();
+        fulfillmentOrderIdsRow.hide();
+        orderIdRow.hide();
+        dataJsonRow.hide();
+
+        const ShopifyAPIRequestsParamsMap = {
+    "assignedFulfillmentOrder": {
+      "get": { params: ["dataJson"], paging: false },
+    },
+    "cancellationRequest": {
+      "create": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+      "accept": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+      "reject": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+    },
+    "carrierService": {
+      "create": { params: ["dataJson"], paging: false },
+      "list": { params: [], paging: false },
+      "get": { params: ["carrierServiceId"], paging: false },
+      "update": { params: ["carrierServiceId", "dataJson"], paging: false },
+      "delete": { params: ["carrierServiceId"], paging: false },
+    },
+    "fulfillment": {
+      "create": { params: ["lineItemsByFulfillmentOrder", "dataJson"], paging: false },
+      "cancel": { params: ["fulfillmentId"], paging: false },
+      "update": { params: ["fulfillmentId", "dataJson"], paging: false },
+      "listForOrder": { params: ["fulfillmentOrderId"], paging: false },//
+      "get": { params: ["orderId", "dataJson"], paging: false },
+      "count": { params: ["fulfillmentId", "orderId", "dataJson"], paging: false },
+    },
+    "fulfillmentEvent": {
+      "create": { params: ["fulfillmentId", "orderId"], paging: false },
+      "list": { params: ["fulfillmentId", "orderId"], paging: false },
+      "get": { params: ["eventId", "fulfillmentId", "orderId"], paging: false },
+      "delete": { params: ["eventId", "fulfillmentId", "orderId"], paging: false },
+    },
+    "fulfillmentOrder": {
+      "cancel": { params: ["fulfillmentOrderId"], paging: false },
+      //"setIncomplete": { params: ["fulfillmentOrderId", "message"], paging: false }, //
+      //"fulfillmentholdonopenorder": { params: ["fulfillment_order_id", "fulfillment_hold"], paging: false }, //
+      "movetonewlocation": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+      //"setOpen": { params: ["fulfillment_order_id",], paging: false }, //
+      //"fulfillmentrelease": { params: ["fulfillment_order_id"], paging: false }, //
+      //"rescheduleFulfill_atTime": { params: ["fulfillment_order_id", "new_fulfill_at"], paging: false }, //
+      "setDeadline": { params: ["fulfillmentOrderIds", "dataJson"], paging: false }, 
+      "get": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+      "listForOrder": { params: ["orderId", "dataJson"], paging: false },
+      "locationsForMove": { params: ["fulfillmentOrderId"], paging: false },
+    },
+    "fulfillmentRequest": {
+     "create": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+     "accept": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+     "reject": { params: ["fulfillmentOrderId", "dataJson"], paging: false },
+    },
+    "fulfillmentService": {
+     "create": { params: ["dataJson"], paging: false },
+     "list": { params: ["dataJson"], paging: false },
+     "get": { params: ["fulfillmentServiceId"], paging: false },
+     "update": { params: ["fulfillmentServiceId", "dataJson"], paging: false },
+     "delete": { params: ["fulfillmentServiceId"], paging: false },
+    }}
+    
+    if (resource && method) {
+    ShopifyAPIRequestsParamsMap[resource][method].params.forEach(element => {
+      switch(element){
+        case "fulfillmentOrderId": {fulfillmentOrderIdRow.show(); break;}
+        case "carrierServiceId": {carrierServiceIdRow.show(); break;}
+        case "lineItemsByFulfillmentOrder": {lineItemsByFulfillmentOrderRow.show(); break;}
+        case "fulfillmentId": {fulfillmentIdRow.show(); break;}
+        case "orderId": {orderIdRow.show(); break;}
+        case "eventId": {eventIdRow.show(); break;}
+        case "fulfillmentOrderIds": {fulfillmentOrderIdsRow.show(); break;}
+        case "fulfillmentServiceId": {fulfillmentServiceIdRow.show(); break;}
+        case "dataJson": {dataJsonRow.show(); break;}
+        default: {}
+      }
+    });} 
+
+      }
+
+      $("#node-input-resource").change(function() {
+        SetMethodOption();
+        ShowParameters();
+      });
+      $("#node-input-method").change(function() {
+        ShowParameters();
+      });
+    }
+  });
+
+</script>

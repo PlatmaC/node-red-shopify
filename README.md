@@ -19,7 +19,7 @@ Perform many usefull actions on your Shopify store via Node-RED, such as Blogs a
 
  **6. Synchronization with Other Platforms:** Integrate your Shopify store with other e-commerce platforms, ERP systems, or CRMs to synchronize data and improve business management. These examples demonstrate how the node-red-contrib-shopify node can be used to automate processes and enhance customer interactions in an online store.
 
-
+ **7. Shipping and Fulfillment:** Automate the control of shipping and fulfillment of orders.
 
 
 ## Install
@@ -38,17 +38,47 @@ Restart your Node-RED instance, the shopify node appears in the palette and read
 
 Input parametrs:
 
- - **articleId** - id of an article on which you want to perform actions;
+ - **articleId** - id of an article you want to perform actions with;
 
- - **blogId** - id of a blog on which you want to perform actions;
+ - **blogId** - id of a blog you want to perform actions with;
 
- - **themeId** - id of a theme on which you want to perform actions;
+ - **themeId** - id of a theme you want to perform actions with;
 
- - **commentId** - id of a comment on which you want to perform actions;
+ - **commentId** - id of a comment you want to perform actions with;
 
- - **pageId** - id of a page on which you want to perform actions;
+ - **pageId** - id of a page you want to perform actions with;
 
- - **dataJson** - additional field for all optinal fields, list of which you can see at [Shopidy REST Admin API reference](https://shopify.dev/api/admin-rest);
+ - **fulfillmentOrderId** - id of fulfillent order you want to perform actions with;
+
+ - **carrierServiceId** - if of carrier service you want to perform actions with;
+
+ - **lineItemsByFulfillmentOrder** - the fulfillment order line items that have to be fulfilled;
+
+ - **fulfillmentId** - id of fulfillment you want to perform actions with;
+
+ - **eventId** - id of event you want to perform actions with;
+
+ - **fulfillmentServiceId** - id of fulfillment service you want to perform actions with;
+
+ - **fulfillmentOrderIds** - list of ids of fulfillment orders you want to perform actions with;
+
+ - **orderId** - id of order you want to perform actions with;
+
+ - **addressId** - id of address  you want to perform actions with;
+
+ - **customerId** - if of customer  you want to perform actions with;
+
+ - **inventoryItemId** - id of inventory item  you want to perform actions with;
+
+ - **locationId** - id of location  you want to perform actions with;
+
+ - **draftOrderId** - id of draft order  you want to perform actions with;
+
+ - **productId** - id of product  you want to perform actions with;
+
+ - **variantId** - id of variant  you want to perform actions with;
+ 
+ - **dataJson** - additional field for all optinal fields, list of which you can see at [Shopify REST Admin API reference](https://shopify.dev/api/admin-rest);
 
 ### Authenticate
 
@@ -131,9 +161,9 @@ The shopify-inventory node performs the following operations on the shop's inven
   - **Get** - Retrieve a single location by its ID.
   - **inventoryLevels** - Retrieve a list of inventory levels for a location.
 
-### shopify-online-store node
+### shopify-online_store node
 
-The shopify-customers node performs the following operations on the shop's customer information.
+The shopify-online_store node performs the following operations on the shop's website.
 
 - **Article**
   - **List** - Retrieves a list of articles.
@@ -179,6 +209,59 @@ The shopify-customers node performs the following operations on the shop's custo
   - **Create** - Creates a theme.
   - **Update** - Updates a theme.
   - **Delete** - Removes a theme.
+
+### shopify-shipping_fulfillment node 
+
+The shopify-shipping_fulfillment node performs the following operations on the shop's shipping and fulfillment of orders information.
+
+- **Assigned fulfillment order**
+  - **Get** - Retrieves a assigned fulfillment order.
+
+- **Cancellation request**
+  - **Send cancelation request** - Send cancelation request.
+  - **Accept cancelation request** - Accepts cancelation request.
+  - **Reject cancelation request** - Rejects cancelation service.
+
+- **Carrier service**
+  - **Create** - Create a carrier service.
+  - **List** - Retrieves a list of carrier services.
+  - **Get** - Retrieves a single carrier service.
+  - **Update** - Updates a carrier service.
+  - **Delete** - Removes a carrier service.
+
+- **Fulfillment**
+  - **Create** - Create a fulfillment.
+  - **Cancel** - Removes a fulfillment.
+  - **Update** - Updates a single fulfillment.
+  - **List for order** - Retrieves a list of fulfillments.
+  - **Get** - Retrieves a single fulfillment.
+  - **Count** - Retrieves a count of fulfillments.
+      
+- **Fulfillment event**
+  - **Create** - Create a fulfillment event.
+  - **List** - Retrieves a lisf ot fulfillment events.
+  - **Get** - Retrieves a single fulfillment event.
+  - **Delete** - Removes a fulfillment event.
+
+- **Fulfillment order**
+  - **Cancel** - Cancel a fulfillment order.
+  - **Move to new location** - Moves fulfillment order to new location.
+  - **Set deadline for fulfill** - Sets deadline for fulfill for order.
+  - **Get** - Retrieves a single fulfillment order.
+  - **List for order** - Retrieves a list of fulfillment orders for order.
+  - **Locations for move** - Retrieves a list of locations for move fulfillment order
+
+- **Fulfillment request**
+  - **Send fulfillment request** - Send fulfillment request.
+  - **Accept fulfillment request fulfillment request** - Accepts fulfillment request fulfillment request.
+  - **Reject fulfillment request** - Rejects fulfillment request.
+
+- **Fulfillment service**
+  - **Create** - Create a fulfillment service.
+  - **List** - Retrieves a list of fulfillment service.
+  - **Get** - Retrieves a single fulfillment service.
+  - **Update** - Updates a fulfillment service.
+  - **Delete** - Removes a fulfillment service.
 
 **Note**： For more information about parametrs inside **"dataJson"**, see [Shopify REST Admin API reference](https://shopify.dev/api/admin-rest).
 

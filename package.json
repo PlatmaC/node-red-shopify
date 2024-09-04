@@ -1,6 +1,6 @@
 {
   "name": "@platmac/node-red-shopify",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Hooke Jr. <platma@platma.com>",
   "description": "A collection of Node-RED nodes for Shopify Admin API / REST.",
   "license": "Apache-2.0",
@@ -26,8 +26,8 @@
       "shopify-products": "shopify-products.js",
       "shopify-orders": "shopify-orders.js",
       "shopify-inventory": "shopify-inventory.js",
-      "shopify-online_store": "shopify-online_store.js"
-
+      "shopify-online_store": "shopify-online_store.js",
+      "shopify-shipping_fulfillment": "shopify-shipping_fulfillment.js"
     }
   }
 }
